@@ -1,10 +1,13 @@
 package stackjava.com.sbsecurityhibernate.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.annotation.RequestScope;
 
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
 import stackjava.com.sbsecurityhibernate.entities.User;
@@ -35,6 +39,9 @@ public class BaseController {
 	@Autowired
 	private LoginValidator loginValidator;
 
+	@Autowired
+	HttpServletRequest request;
+
 	// Set a form validator
 	@InitBinder
 	protected void initBinder(WebDataBinder dataBinder) {
@@ -55,27 +62,13 @@ public class BaseController {
 	}
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
-	public String login(@RequestParam(required = false) String message, final Model model) {
-
-		if (message != null && !message.isEmpty()) {
-			if (message.equals("logout")) {
-				model.addAttribute("message", "Logout!");
-			}
-			if (message.equals("error")) {
-				model.addAttribute("message", "Login Failed!");
-			}
+	public String login(Model model, LoginForm form) {
+		String message = (String) request.getSession().getAttribute("message");
+		request.getSession().removeAttribute("message");
+		if (!StringUtils.isEmpty(message)) {
+			model.addAttribute("message", message);
 		}
-		LoginForm form = new LoginForm();
 		model.addAttribute("loginForm", form);
-		return "login";
-	}
-
-	@RequestMapping(value = { "/login" }, method = RequestMethod.POST)
-	public String loginCheck(@RequestParam(required = false) String message, final Model model,
-			@Validated LoginForm form, BindingResult result) {
-		if (result.hasErrors()) {
-			model.addAttribute("loginForm", form);
-		}
 		return "login";
 	}
 
