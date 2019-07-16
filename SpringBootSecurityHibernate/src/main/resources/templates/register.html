@@ -42,8 +42,8 @@
 								method='POST' class="user">
 
 								<div class="alert alert-warning alert-dismissible fade show"
-									th:if="${#fields.hasErrors('*')}" th:errors="*{*}" role="alert">
-
+									th:if="${#fields.hasErrors('*')}" role="alert">
+									<strong th:errors="*{*}"></strong>
 									<button type="button" class="close" data-dismiss="alert"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
@@ -52,7 +52,7 @@
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="text" class="form-control form-control-user"
-											placeholder="Họ và tên đệm" name="lastName">
+											placeholder="Họ và tên đệm" th:field="*{lastName}">
 									</div>
 									<div class="col-sm-6">
 										<input type="text" class="form-control form-control-user"
@@ -61,11 +61,11 @@
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control form-control-user"
-										placeholder="Tên đăng nhập" name="username">
+										placeholder="Tên đăng nhập" th:field="*{username}">
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control form-control-user"
-										placeholder="Số điện thoại" name="numberPhone">
+										placeholder="Số điện thoại" th:field="*{numberPhone}">
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
@@ -74,7 +74,7 @@
 									</div>
 									<div class="col-sm-6">
 										<input type="password" class="form-control form-control-user"
-											placeholder="Nhập lại mật khẩu" name="re-password">
+											placeholder="Nhập lại mật khẩu" name="passwordConfirm">
 									</div>
 								</div>
 								<input type="submit" class="btn btn-primary btn-user btn-block"

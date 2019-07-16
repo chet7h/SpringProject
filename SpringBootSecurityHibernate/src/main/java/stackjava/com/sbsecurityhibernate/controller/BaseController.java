@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
 import stackjava.com.sbsecurityhibernate.entities.User;
+import stackjava.com.sbsecurityhibernate.form.LoginForm;
 import stackjava.com.sbsecurityhibernate.form.RegisterForm;
+import stackjava.com.sbsecurityhibernate.validator.LoginValidator;
 import stackjava.com.sbsecurityhibernate.validator.RegisterValidator;
 
 @Controller
@@ -30,6 +32,9 @@ public class BaseController {
 	@Autowired
 	private RegisterValidator registerValidator;
 
+	@Autowired
+	private LoginValidator loginValidator;
+
 	// Set a form validator
 	@InitBinder
 	protected void initBinder(WebDataBinder dataBinder) {
@@ -43,10 +48,15 @@ public class BaseController {
 		if (target.getClass() == RegisterForm.class) {
 			dataBinder.setValidator(registerValidator);
 		}
+
+		if (target.getClass() == LoginForm.class) {
+			dataBinder.setValidator(loginValidator);
+		}
 	}
 
-	@RequestMapping(value = { "/", "/login" })
+	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String login(@RequestParam(required = false) String message, final Model model) {
+
 		if (message != null && !message.isEmpty()) {
 			if (message.equals("logout")) {
 				model.addAttribute("message", "Logout!");
@@ -54,6 +64,17 @@ public class BaseController {
 			if (message.equals("error")) {
 				model.addAttribute("message", "Login Failed!");
 			}
+		}
+		LoginForm form = new LoginForm();
+		model.addAttribute("loginForm", form);
+		return "login";
+	}
+
+	@RequestMapping(value = { "/login" }, method = RequestMethod.POST)
+	public String loginCheck(@RequestParam(required = false) String message, final Model model,
+			@Validated LoginForm form, BindingResult result) {
+		if (result.hasErrors()) {
+			model.addAttribute("loginForm", form);
 		}
 		return "login";
 	}

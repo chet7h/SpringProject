@@ -36,6 +36,7 @@ public class UserDAO {
 	public void registerAccount(User user) {
 
 		Session session = this.sessionFactory.getCurrentSession();
+		user.setEnabled(true);
 		session.save(user);
 		Role role = new Role();
 		role.setId(1);

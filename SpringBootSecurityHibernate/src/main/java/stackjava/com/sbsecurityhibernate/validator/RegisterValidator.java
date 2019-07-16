@@ -42,11 +42,37 @@ public class RegisterValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "passwordConfirm", "NotEmpty.registerForm.passwordConfirm");
 		if (errors.hasErrors())
 			return;
+		if (form.getFirstName().length() > 15 || form.getFirstName().length() < 6) {
+			errors.rejectValue("firstName", "Length.registerForm.firstName");
+			return;
+		}
+
+		if (form.getLastName().length() > 15 || form.getLastName().length() < 6) {
+			errors.rejectValue("lastName", "Length.registerForm.lastName");
+			return;
+		}
+
+		if (form.getUsername().length() > 15 || form.getUsername().length() < 6) {
+			errors.rejectValue("username", "Length.registerForm.userName");
+			return;
+		}
+
 		if (!errors.hasFieldErrors("username")) {
 			User dbUser = userDAO.loadUserByUsername(form.getUsername());
 			if (dbUser != null) {
 				// Tên tài khoản đã bị sử dụng bởi người khác.
-				errors.rejectValue("userName", "Duplicate.appUserForm.userName");
+				errors.rejectValue("username", "Duplicate.registerForm.userName");
+				return;
+			}
+		}
+
+		if (form.getPassword().length() > 15 || form.getPassword().length() < 6) {
+			errors.rejectValue("password", "Length.registerForm.password");
+			return;
+		}
+		if (!(errors.hasFieldErrors("password") && errors.hasFieldErrors("password"))) {
+			if (form.getPassword().equals(form.getPasswordConfirm())) {
+				errors.rejectValue("password", "Diff.registerForm.password");
 				return;
 			}
 		}
