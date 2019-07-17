@@ -1,36 +1,105 @@
-CREATE TABLE `users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NULL,
-  `password` VARCHAR(255) NULL,
-  `enabled` INT(1) NULL,
+-- phpMyAdmin SQL Dump
+-- version 3.3.9
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jul 17, 2019 at 04:03 午前
+-- Server version: 5.5.8
+-- PHP Version: 5.3.5
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `giai_phap_sms`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id`, `name`) VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_USER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `enabled` int(1) DEFAULT NULL,
+  `first_name` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `number_phone` int(15) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC));
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
 
-CREATE TABLE `role` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
-  
-CREATE TABLE `users_roles` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user` INT NULL,
-  `role` INT NULL,
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `enabled`, `first_name`, `last_name`, `number_phone`, `create_date`, `update_date`) VALUES
+(1, 'kai', '$2a$04$GYGsaJj9l6kH2GikK6QVzO0v3sOCxt3vdkiA2/tcoSw8erI85ZYDG', 1, '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'sena', '$2a$04$GYGsaJj9l6kH2GikK6QVzO0v3sOCxt3vdkiA2/tcoSw8erI85ZYDG', 1, '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'cuongnv20', '$2a$10$S19.yfj.OQHmoHOLt6qp7euUZifK6Fw6HqCKSS90T0q33YzEu2bs6', NULL, 'Cuong', 'Nguyen Van', 973483873, '2019-07-16 09:18:32', '2019-07-16 09:18:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_roles`
+--
+
+CREATE TABLE IF NOT EXISTS `users_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `_idx` (`user` ASC),
-  INDEX `dfdf_idx` (`role` ASC),
-  CONSTRAINT `user`
-    FOREIGN KEY (`user`)
-    REFERENCES `users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `role`
-    FOREIGN KEY (`role`)
-    REFERENCES `role` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-	
-INSERT INTO `users` VALUES (1,'kai','$2a$04$GYGsaJj9l6kH2GikK6QVzO0v3sOCxt3vdkiA2/tcoSw8erI85ZYDG',1),(2,'sena','$2a$04$GYGsaJj9l6kH2GikK6QVzO0v3sOCxt3vdkiA2/tcoSw8erI85ZYDG',1);
+  KEY `_idx` (`user`),
+  KEY `dfdf_idx` (`role`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
 
-INSERT INTO `role` VALUES (1,'ROLE_ADMIN'),(2,'ROLE_USER');
+--
+-- Dumping data for table `users_roles`
+--
 
-INSERT INTO `users_roles` VALUES (1,1,1),(2,1,2),(4,2,2);
+INSERT INTO `users_roles` (`id`, `user`, `role`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(4, 2, 2),
+(5, 3, 1);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD CONSTRAINT `role` FOREIGN KEY (`role`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `user` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
