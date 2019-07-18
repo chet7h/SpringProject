@@ -21,7 +21,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 		if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
 			errMsg = "Invalid username or password.";
 		} else {
-			errMsg = "Unknown error - " + exp.getMessage();
+			httpServletResponse.sendRedirect("/error"); 
 		}
 		httpServletRequest.getSession().setAttribute("message", errMsg);
 		httpServletResponse.sendRedirect("/login"); // Redirect user to login page with error message.
