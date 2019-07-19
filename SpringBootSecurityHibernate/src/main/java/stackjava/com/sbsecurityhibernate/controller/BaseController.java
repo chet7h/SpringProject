@@ -105,6 +105,11 @@ public class BaseController {
 		return "login";
 	}
 
+	@RequestMapping("/sendSms")
+	public String sendSms() {
+		return "send-sms";
+	}
+
 	@RequestMapping("/forgotPassword")
 	public String forgotPassword() {
 		return "forgot-password";
