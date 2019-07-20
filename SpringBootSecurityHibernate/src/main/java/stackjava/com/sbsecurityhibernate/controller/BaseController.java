@@ -102,12 +102,18 @@ public class BaseController {
 		BeanUtils.copyProperties(registerForm, user);
 		user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
 		userDAO.registerAccount(user);
+		model.addAttribute("loginForm", new LoginForm());
 		return "login";
 	}
 
 	@RequestMapping("/sendSms")
 	public String sendSms() {
 		return "send-sms";
+	}
+	
+	@RequestMapping("/detailSecret")
+	public String detailSecret() {
+		return "secret-key-detail";
 	}
 
 	@RequestMapping("/forgotPassword")

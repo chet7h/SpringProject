@@ -71,7 +71,7 @@ public class RegisterValidator implements Validator {
 			return;
 		}
 		if (!(errors.hasFieldErrors("password") && errors.hasFieldErrors("password"))) {
-			if (form.getPassword().equals(form.getPasswordConfirm())) {
+			if (!(form.getPassword().equals(form.getPasswordConfirm()))) {
 				errors.rejectValue("password", "Diff.registerForm.password");
 				return;
 			}
