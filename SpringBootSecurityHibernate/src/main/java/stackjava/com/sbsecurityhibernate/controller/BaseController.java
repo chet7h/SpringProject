@@ -110,7 +110,7 @@ public class BaseController {
 	public String sendSms() {
 		return "send-sms";
 	}
-	
+
 	@RequestMapping("/detailSecret")
 	public String detailSecret() {
 		return "secret-key-detail";
@@ -119,6 +119,21 @@ public class BaseController {
 	@RequestMapping("/forgotPassword")
 	public String forgotPassword() {
 		return "forgot-password";
+	}
+
+	@RequestMapping("/profile")
+	public String profile() {
+		return "profile";
+	}
+
+	@RequestMapping("/setting")
+	public String setting() {
+		return "setting";
+	}
+
+	@RequestMapping("/activityLog")
+	public String activityLog() {
+		return "activity-log";
 	}
 
 	@RequestMapping("/403")
