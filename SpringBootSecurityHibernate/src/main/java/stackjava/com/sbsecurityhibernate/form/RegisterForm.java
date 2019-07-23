@@ -2,6 +2,8 @@ package stackjava.com.sbsecurityhibernate.form;
 
 import javax.validation.constraints.NotNull;
 
+import stackjava.com.sbsecurityhibernate.validator.customvalidator.FirstNameContraint;
+import stackjava.com.sbsecurityhibernate.validator.customvalidator.LastNameContraint;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.NumberPhoneContraint;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.PasswordContraint;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.UsernameContraint;
@@ -9,8 +11,12 @@ import stackjava.com.sbsecurityhibernate.validator.customvalidator.UsernameContr
 @PasswordContraint(first = "password", second = "passwordConfirm")
 public class RegisterForm {
 
+	@NotNull
+	@LastNameContraint
 	private String lastName;
 
+	@NotNull
+	@FirstNameContraint
 	private String firstName;
 
 	@NotNull

@@ -71,6 +71,19 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.8.3</version>
 		</dependency>
+		<!-- Spring Boot Automatic Restart using Developer Tools with Maven -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/gnu.io/rxtx -->
+		<dependency>
+			<groupId>gnu.io</groupId>
+			<artifactId>rxtx</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
