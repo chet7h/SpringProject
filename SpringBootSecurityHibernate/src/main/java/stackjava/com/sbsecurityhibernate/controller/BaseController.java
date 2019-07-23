@@ -20,7 +20,6 @@ import stackjava.com.sbsecurityhibernate.entities.User;
 import stackjava.com.sbsecurityhibernate.form.LoginForm;
 import stackjava.com.sbsecurityhibernate.form.RegisterForm;
 import stackjava.com.sbsecurityhibernate.validator.LoginValidator;
-import stackjava.com.sbsecurityhibernate.validator.RegisterValidator;
 
 @Controller
 public class BaseController {
@@ -30,9 +29,6 @@ public class BaseController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private RegisterValidator registerValidator;
 
 	@Autowired
 	private LoginValidator loginValidator;
