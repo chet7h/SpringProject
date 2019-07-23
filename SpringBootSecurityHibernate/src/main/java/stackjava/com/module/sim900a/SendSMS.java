@@ -1,23 +1,28 @@
 package stackjava.com.module.sim900a;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
-
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.ArrayList;
 
-import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 import gnu.io.UnsupportedCommOperationException;
 
+/**
+ * 
+ * @author CuongNV20
+ * @see https://www.raspberrypi.org/forums/viewtopic.php?t=218198#p1341543
+ *
+ */
 class SendSMS {
 	private boolean fim;
 
-	public ComunicacaoMovel()
-	{
+	public SendSMS() {
 		fim = false;
 	}
 
@@ -88,7 +93,7 @@ class SendSMS {
 	}
 
 	public static void main(String[] args) {
-		ComunicacaoMovel comunicacaoMovel = new ComunicacaoMovel();
-		comunicacaoMovel.enviarMensagemSMS("+5527999XXXXXX", "Test");
+		SendSMS comunicacaoMovel = new SendSMS();
+		comunicacaoMovel.enviarMensagemSMS("+84973483873", "Test");
 	}
 }
