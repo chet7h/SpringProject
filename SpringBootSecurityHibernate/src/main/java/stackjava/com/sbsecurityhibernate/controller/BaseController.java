@@ -1,6 +1,7 @@
 package stackjava.com.sbsecurityhibernate.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.annotation.RequestScope;
 
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
 import stackjava.com.sbsecurityhibernate.entities.User;
@@ -53,7 +51,7 @@ public class BaseController {
 		System.out.println("Target=" + target);
 
 		if (target.getClass() == RegisterForm.class) {
-			dataBinder.setValidator(registerValidator);
+//			dataBinder.setValidator(registerValidator);
 		}
 
 		if (target.getClass() == LoginForm.class) {
@@ -90,7 +88,7 @@ public class BaseController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String saveRegister(Model model, @Validated RegisterForm registerForm, BindingResult result) {
+	public String saveRegister(Model model, @Valid RegisterForm registerForm, BindingResult result) {
 		// Validate result
 		if (result.hasErrors()) {
 //            List<Country> countries = countryDAO.getCountries();
