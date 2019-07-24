@@ -58,13 +58,12 @@ class SendSMS {
 			final Thread threadLeituraStream = new Thread() {
 				@Override
 				public void run() {
-					try {
-						final BufferedReader leitor = new BufferedReader(
-								new InputStreamReader(portaSerial.getInputStream()));
+					try (final BufferedReader leitor = new BufferedReader(
+							new InputStreamReader(portaSerial.getInputStream()));) {
 						String linha = null;
 						while ((linha = leitor.readLine()) != null && !fim)
 							System.out.println(linha);
-						leitor.close();
+
 					} catch (final Exception excecao) {
 						excecao.printStackTrace();
 					}
@@ -81,7 +80,9 @@ class SendSMS {
 
 			streamSaida.close();
 			portaSerial.close();
-		} catch (PortInUseException excecao) {
+		} catch (
+
+		PortInUseException excecao) {
 			excecao.printStackTrace();
 		} catch (IOException excecao) {
 			excecao.printStackTrace();
@@ -92,8 +93,9 @@ class SendSMS {
 		}
 	}
 
-	public static void main(String[] args) {
-		SendSMS comunicacaoMovel = new SendSMS();
-		comunicacaoMovel.enviarMensagemSMS("+84973483873", "Test");
+	public static void send(String numberPhone, String Content) {
+//		SendSMS comunicacaoMovel = new SendSMS();
+//		comunicacaoMovel.enviarMensagemSMS("+84973483873", "Test");
+		System.out.println(numberPhone + " : " + Content);
 	}
 }
