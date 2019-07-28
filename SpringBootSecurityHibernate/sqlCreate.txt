@@ -1,23 +1,45 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
--- http://www.phpmyadmin.net
+-- version 4.8.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 17, 2019 at 04:03 午前
--- Server version: 5.5.8
--- PHP Version: 5.3.5
+-- Host: 127.0.0.1
+-- Generation Time: Jul 28, 2019 at 02:16 PM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `giai_phap_sms`
 --
+CREATE DATABASE IF NOT EXISTS `giai_phap_sms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `giai_phap_sms`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `info_send_sms`
+--
+
+CREATE TABLE `info_send_sms` (
+  `number_phone` varchar(15) NOT NULL,
+  `content` varchar(1000) NOT NULL,
+  `status` int(11) NOT NULL,
+  `type_send` int(11) NOT NULL,
+  `sender` varchar(15) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `id_info_send_sms` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -25,11 +47,10 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `role`
@@ -45,8 +66,8 @@ INSERT INTO `role` (`id`, `name`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `username` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `enabled` int(1) DEFAULT NULL,
@@ -54,10 +75,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_name` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `number_phone` int(15) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
+  `update_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -66,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `enabled`, `first_name`, `last_name`, `number_phone`, `create_date`, `update_date`) VALUES
 (1, 'kai', '$2a$04$GYGsaJj9l6kH2GikK6QVzO0v3sOCxt3vdkiA2/tcoSw8erI85ZYDG', 1, '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'sena', '$2a$04$GYGsaJj9l6kH2GikK6QVzO0v3sOCxt3vdkiA2/tcoSw8erI85ZYDG', 1, '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'cuongnv20', '$2a$10$S19.yfj.OQHmoHOLt6qp7euUZifK6Fw6HqCKSS90T0q33YzEu2bs6', NULL, 'Cuong', 'Nguyen Van', 973483873, '2019-07-16 09:18:32', '2019-07-16 09:18:32');
+(3, 'cuongnv20', '$2a$10$S19.yfj.OQHmoHOLt6qp7euUZifK6Fw6HqCKSS90T0q33YzEu2bs6', NULL, 'Cuong', 'Nguyen Van', 973483873, '2019-07-16 02:18:32', '2019-07-16 02:18:32');
 
 -- --------------------------------------------------------
 
@@ -74,14 +93,11 @@ INSERT INTO `users` (`id`, `username`, `password`, `enabled`, `first_name`, `las
 -- Table structure for table `users_roles`
 --
 
-CREATE TABLE IF NOT EXISTS `users_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users_roles` (
+  `id` int(11) NOT NULL,
   `user` int(11) DEFAULT NULL,
-  `role` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `_idx` (`user`),
-  KEY `dfdf_idx` (`role`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
+  `role` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users_roles`
@@ -94,6 +110,65 @@ INSERT INTO `users_roles` (`id`, `user`, `role`) VALUES
 (5, 3, 1);
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `info_send_sms`
+--
+ALTER TABLE `info_send_sms`
+  ADD PRIMARY KEY (`id_info_send_sms`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username_UNIQUE` (`username`);
+
+--
+-- Indexes for table `users_roles`
+--
+ALTER TABLE `users_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `_idx` (`user`),
+  ADD KEY `dfdf_idx` (`role`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `info_send_sms`
+--
+ALTER TABLE `info_send_sms`
+  MODIFY `id_info_send_sms` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `users_roles`
+--
+ALTER TABLE `users_roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -103,3 +178,8 @@ INSERT INTO `users_roles` (`id`, `user`, `role`) VALUES
 ALTER TABLE `users_roles`
   ADD CONSTRAINT `role` FOREIGN KEY (`role`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `user` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
