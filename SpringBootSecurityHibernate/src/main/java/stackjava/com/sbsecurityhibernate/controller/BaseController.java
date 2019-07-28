@@ -129,6 +129,11 @@ public class BaseController {
 	public String activityLog() {
 		return "activity-log";
 	}
+	
+	@RequestMapping("/otpInput")
+	public String otpInput() {
+		return "otp-input";
+	}
 
 	@RequestMapping("/403")
 	public String accessDenied() {

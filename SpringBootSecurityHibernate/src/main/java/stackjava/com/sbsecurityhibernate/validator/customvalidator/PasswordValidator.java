@@ -19,8 +19,8 @@ public class PasswordValidator implements ConstraintValidator<PasswordContraint,
 		try {
 			final Object firstObj = PropertyUtils.getProperty(object, this.password);
 			final Object secondObj = PropertyUtils.getProperty(object, this.passwordConfirm);
-			return firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj)
-					&& password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[^\\s]{8,}$");
+			return firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
+//					&& password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[^\\s]{8,}$");
 		} catch (final Exception ex) {
 			return false;
 		}
