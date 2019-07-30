@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/static**").permitAll();
 		// Chỉ cho phép user có quyền ADMIN truy cập đường dẫn /admin/**
 		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
-
+		http.authorizeRequests().antMatchers("/include/**").permitAll();
 		// Chỉ cho phép user có quyền ADMIN hoặc USER truy cập đường dẫn
 		// /user/**
 		http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");
