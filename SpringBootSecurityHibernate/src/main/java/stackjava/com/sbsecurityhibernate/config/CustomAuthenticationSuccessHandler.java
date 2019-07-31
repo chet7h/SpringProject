@@ -28,6 +28,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			} else {
+				try {
+					redirectStrategy.sendRedirect(request, response, "/admin");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

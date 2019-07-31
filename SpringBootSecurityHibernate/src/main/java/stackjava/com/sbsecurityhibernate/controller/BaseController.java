@@ -11,10 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import stackjava.com.module.sim900a.SendSMS;
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
 import stackjava.com.sbsecurityhibernate.entities.User;
 import stackjava.com.sbsecurityhibernate.form.LoginForm;
@@ -100,8 +103,14 @@ public class BaseController {
 		return "otp-input";
 	}
 
-	@RequestMapping("/sendSms")
+	@GetMapping("/sendSms")
 	public String sendSms() {
+		return "send-sms";
+	}
+
+	@PostMapping("/sendSms")
+	public String sendSmsFromDatabase() {
+		SendSMS.sendFromDatabase();
 		return "send-sms";
 	}
 
@@ -129,7 +138,7 @@ public class BaseController {
 	public String activityLog() {
 		return "activity-log";
 	}
-	
+
 	@RequestMapping("/otpInput")
 	public String otpInput() {
 		return "otp-input";
