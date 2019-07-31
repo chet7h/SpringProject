@@ -50,12 +50,23 @@
 					<!-- Content Row -->
 					<th:block th:include="include/breadcrumb"></th:block>
 					<!-- Content Row -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800"
-							th:utext="${#request.userPrincipal.name}"></h1>
+					<div class="row">
+
+						<!-- Earnings (Monthly) Card Example -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<form action="/action_page.php" class="needs-validation"
+								novalidate>
+								<div class="form-group">
+									<input type="text" class="form-control" id="uname"
+										placeholder="Nhap ma OTP" name="uname" required
+										autocomplete="off">
+									<div class="valid-feedback">Valid.</div>
+									<div class="invalid-feedback">Nhap ma OTP</div>
+								</div>
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</form>
+						</div>
 					</div>
-					<!-- /.container-fluid -->
 					<!-- /.container-fluid -->
 
 				</div>
@@ -68,27 +79,51 @@
 
 			</div>
 			<!-- End of Content Wrapper -->
-
 		</div>
-		<!-- End of Page Wrapper -->
+	</div>
+	<!-- End of Page Wrapper -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-		<!-- Logout Modal-->
-		<th:block th:include="include/modal/logout-modal"></th:block>
+	<!-- Logout Modal-->
+	<th:block th:include="include/modal/logout-modal"></th:block>
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script src="js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
+	<script>
+		// Disable form submissions if there are invalid fields
+		(function() {
+			'use strict';
+			window.addEventListener('load',
+					function() {
+						// Get the forms we want to add validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
+	</script>
 </body>
 
 </html>

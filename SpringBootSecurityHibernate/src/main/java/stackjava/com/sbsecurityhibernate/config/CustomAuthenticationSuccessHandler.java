@@ -12,9 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 
-@Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 

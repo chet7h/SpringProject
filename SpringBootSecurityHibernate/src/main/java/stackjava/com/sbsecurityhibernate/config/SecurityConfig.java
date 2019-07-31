@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import stackjava.com.sbsecurityhibernate.service.MyUserDetailsService;
 
@@ -37,15 +38,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new CustomAuthenticationFailureHandler();
 	}
 
+	@Bean
+	AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+		return new CustomAuthenticationSuccessHandler();
+	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/static**").permitAll();
 		// Chỉ cho phép user có quyền ADMIN truy cập đường dẫn /admin/**
-		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
 		http.authorizeRequests().antMatchers("/include/**").permitAll();
 		// Chỉ cho phép user có quyền ADMIN hoặc USER truy cập đường dẫn
 		// /user/**
-		http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");
+
+		http.authorizeRequests().antMatchers("/otpInput").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");
+		String[] re = new String[] { "/admin**", "/setting**", "/apiManager**", "/profile**", "/sendSms**" };
+		http.authorizeRequests().antMatchers(re).access("hasRole('ROLE_ADMIN')");
 
 		// Khi người dùng đã login, với vai trò USER, Nhưng truy cập vào trang
 		// yêu cầu vai trò ADMIN, sẽ chuyển hướng tới trang /403
@@ -55,8 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().and().formLogin()//
 				.loginProcessingUrl("/j_spring_security_login")//
 				.loginPage("/login")//
-				.defaultSuccessUrl("/admin")//
-				.failureUrl("/login?message=error")//
+				.successHandler(customAuthenticationSuccessHandler()).failureUrl("/login?message=error")//
 				.failureHandler(customAuthenticationFailureHandler()).usernameParameter("username")//
 				.passwordParameter("password")
 				// Cấu hình cho Logout Page.

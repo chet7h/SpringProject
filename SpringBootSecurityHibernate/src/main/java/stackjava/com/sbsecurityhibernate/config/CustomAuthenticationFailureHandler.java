@@ -16,12 +16,12 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 			AuthenticationException exp) throws IOException, ServletException {
 //		httpServletRequest.getSession().setAttribute("xxx", "cccccccc");
 //		httpServletResponse.sendRedirect("/login");
-		
+
 		String errMsg = "";
 		if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
 			errMsg = "Invalid username or password.";
 		} else {
-			httpServletResponse.sendRedirect("/error"); 
+			httpServletResponse.sendRedirect("/error");
 		}
 		httpServletRequest.getSession().setAttribute("message", errMsg);
 		httpServletResponse.sendRedirect("/login"); // Redirect user to login page with error message.

@@ -97,7 +97,7 @@ public class BaseController {
 		user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
 		userDAO.registerAccount(user);
 		model.addAttribute("loginForm", new LoginForm());
-		return "login";
+		return "otp-input";
 	}
 
 	@RequestMapping("/sendSms")
