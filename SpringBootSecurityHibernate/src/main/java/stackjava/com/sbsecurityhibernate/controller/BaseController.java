@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import stackjava.com.module.sim900a.SendSMS;
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
+import stackjava.com.sbsecurityhibernate.entities.InfoSendSms;
 import stackjava.com.sbsecurityhibernate.entities.User;
 import stackjava.com.sbsecurityhibernate.form.LoginForm;
 import stackjava.com.sbsecurityhibernate.form.RegisterForm;
+import stackjava.com.sbsecurityhibernate.form.SendSmsForm;
+import stackjava.com.sbsecurityhibernate.service.SendSmsService;
 import stackjava.com.sbsecurityhibernate.validator.LoginValidator;
 
 @Controller
@@ -38,6 +41,9 @@ public class BaseController {
 
 	@Autowired
 	HttpServletRequest request;
+
+	@Autowired
+	SendSmsService sendSmsService;
 
 	// Set a form validator
 	@InitBinder
@@ -90,8 +96,6 @@ public class BaseController {
 	public String saveRegister(Model model, @Valid RegisterForm registerForm, BindingResult result) {
 		// Validate result
 		if (result.hasErrors()) {
-//            List<Country> countries = countryDAO.getCountries();
-//            model.addAttribute("countries", countries);
 			model.addAttribute("registerForm", registerForm);
 			return "register";
 		}
@@ -109,7 +113,14 @@ public class BaseController {
 	}
 
 	@PostMapping("/sendSms")
-	public String sendSmsFromDatabase() {
+	public String sendSmsFromDatabase(Model model, @Valid SendSmsForm sendSmsForm, BindingResult result) {
+
+		InfoSendSms infoSendSms = new InfoSendSms();
+		infoSendSms.setContent(sendSmsForm.getContentSms());
+		infoSendSms.setNumberPhone(sendSmsForm.getNumberPhone());
+		infoSendSms.setSender("000000000");
+		infoSendSms.setStatus(1);
+		sendSmsService.insertContentSms(infoSendSms);
 		SendSMS.sendFromDatabase();
 		return "send-sms";
 	}

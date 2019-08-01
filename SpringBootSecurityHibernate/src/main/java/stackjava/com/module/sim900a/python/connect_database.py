@@ -61,7 +61,7 @@ port.write(content.encode())  # Message
 rcv = port.read(10)
 print rcv
 port.write("\x1A") # Enable to send SMS
-#0x1A để gửi tin nhắn đi hoặc 0x1B để hủy gửi tin nhắn
+#0x1A send or 0x1B cancel
 for i in range(10):
     rcv = port.read(10)
     print rcv
@@ -70,8 +70,9 @@ for i in range(10):
 # ===================================================================================================
 # update status  
 update = mydb.cursor()
-sql = "UPDATE info_send_sms SET id_info_send_sms = '2' WHERE info_send_sms.id_info_send_sms = 1"
-update.execute(sql)
+sql = "UPDATE info_send_sms SET status = '2' WHERE id_info_send_sms = %s AND status = '1'"
+val = (myresult[2])
+update.execute(sql, val)
 mydb.commit()
 print(update.rowcount, "record(s) affected")
 
