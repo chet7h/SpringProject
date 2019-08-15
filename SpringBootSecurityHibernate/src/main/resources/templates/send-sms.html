@@ -4,14 +4,17 @@
 <head>
 
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Dashboard</title>
 
+<title>SB Admin 2 - Dashboard</title>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
@@ -21,6 +24,10 @@
 
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
 
 </head>
 
@@ -53,10 +60,10 @@
 					<!-- Content Row -->
 
 					<div class="row">
-						<div class="col-lg-7">
+						<div class="col-lg-6">
 							<div class="p-5">
 								<div class="text-center">
-									<h1 class="h4 text-gray-900 mb-4">Send a sms!</h1>
+									<h1 class="h4 text-gray-900 mb-4">Thiết lập tin nhắn gửi</h1>
 								</div>
 								<form th:action="@{/sendSms}" method="post">
 									<div class="form-group">
@@ -69,8 +76,153 @@
 										<textarea class="form-control"
 											placeholder="Nhập tin nhắn văn bản" name="contentSms"></textarea>
 									</div>
+									<div class="form-group form-check">
+										<label class="form-check-label"> <input name="sendNow"
+											class="form-check-input" type="checkbox" id="sendNow">Gửi
+											ngay
+										</label>
+									</div>
+									<fieldset class="disSendNow">
+										<div class="form-group">
+											<label>Ngày giờ gửi:</label>
+											<div class="input-group date" id="datetimepicker1"
+												data-target-input="nearest">
+												<input name="dateTimeSend" type="text"
+													class="form-control datetimepicker-input"
+													data-target="#datetimepicker1" />
+												<div class="input-group-append"
+													data-target="#datetimepicker1" data-toggle="datetimepicker">
+													<div class="input-group-text">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Lặp lại: </span>
+											</div>
+											<select name="repeatTime" class="custom-select">
+												<option value="1">Hàng năm</option>
+												<option value="2">Hàng tháng</option>
+												<option value="3">Hàng ngày</option>
+												<option value="4">Một lần duy nhất</option>
+											</select>
+										</div>
+									</fieldset>
+									<script type="text/javascript">
+										$(function() {
+											$(function() {
+												$('#datetimepicker1')
+														.datetimepicker();
+											});
+										});
+									</script>
+
+
+
 									<button type="submit" class="btn btn-primary">Send</button>
 								</form>
+							</div>
+						</div>
+						<div class="col-lg-6" data-spy="scroll">
+							<div class="p-5">
+								<div class="text-center">
+									<h1 class="h4 text-gray-900 mb-4">Danh ba</h1>
+								</div>
+								<div class="input-group mb-3 ">
+									<div class="input-group-prepend">
+										<button class="btn btn-outline-primary fa fa-plus-circle"
+											type="button"></button>
+									</div>
+									<input type="text" class="form-control" placeholder="Ten">
+									<input type="text" class="form-control"
+										placeholder="So dien thoai">
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="fa fa-user text-info input-group-text"></span>
+									</div>
+									<label class="form-control">ten hien thi</label> <label
+										class="form-control">0987654567</label>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -100,7 +252,7 @@
 	<th:block th:include="include/modal/logout-modal"></th:block>
 
 	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
+
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
@@ -108,13 +260,18 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/sb-admin-2.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#sendNow").change(function() {
+				if ($(this).is(":checked")) {
+					$(".disSendNow").attr("disabled", true);
+				} else {
+					$(".disSendNow").attr("disabled", false);
+				}
+			});
+		});
+	</script>
 
-	<!-- Page level plugins -->
-	<script src="vendor/chart.js/Chart.min.js"></script>
-
-	<!-- Page level custom scripts -->
-	<script src="js/demo/chart-area-demo.js"></script>
-	<script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

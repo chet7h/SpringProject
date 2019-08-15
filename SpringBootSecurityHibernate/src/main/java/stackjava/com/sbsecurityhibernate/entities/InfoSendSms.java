@@ -33,6 +33,12 @@ public class InfoSendSms {
 	private Date createDate;
 
 	private Date updateDate;
+	
+	private boolean sendNow;
+	
+	private Date dateTimeSend;
+	
+	private int repeatTime;
 
 	public InfoSendSms() {
 		super();
@@ -126,4 +132,33 @@ public class InfoSendSms {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+
+	@Column(name = "send_now")
+	public boolean isSendNow() {
+		return sendNow;
+	}
+
+	public void setSendNow(boolean sendNow) {
+		this.sendNow = sendNow;
+	}
+
+	@Column(name = "date_time_send")
+	public Date getDateTimeSend() {
+		return dateTimeSend;
+	}
+
+	public void setDateTimeSend(Date dateTimeSend) {
+		this.dateTimeSend = dateTimeSend;
+	}
+
+	@Column(name = "repeat_time")
+	public int getRepeatTime() {
+		return repeatTime;
+	}
+
+	public void setRepeatTime(int repeatTime) {
+		this.repeatTime = repeatTime;
+	}
+	
+	
 }

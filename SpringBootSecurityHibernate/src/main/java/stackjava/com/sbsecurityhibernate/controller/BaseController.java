@@ -120,8 +120,10 @@ public class BaseController {
 		infoSendSms.setNumberPhone(sendSmsForm.getNumberPhone());
 		infoSendSms.setSender("000000000");
 		infoSendSms.setStatus(1);
+		infoSendSms.setSendNow(sendSmsForm.isSendNow());
+		infoSendSms.setDateTimeSend(sendSmsForm.getDateTimeSend());
+		infoSendSms.setRepeatTime(sendSmsForm.getRepeatTime());
 		sendSmsService.insertContentSms(infoSendSms);
-		SendSMS.sendFromDatabase();
 		return "send-sms";
 	}
 
