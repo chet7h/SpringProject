@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Cards</title>
+<title>OTP input</title>
 
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -18,78 +18,74 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
+
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
-<body id="page-top">
+<body class="bg-gradient-primary">
 
-	<!-- Page Wrapper -->
-	<div id="wrapper">
+	<div class="container">
 
-		<!-- Sidebar -->
-		<th:block th:include="include/sidebar"></th:block>
-		<!-- End of Sidebar -->
+		<!-- Outer Row -->
+		<div class="row justify-content-center">
 
-		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
+			<div class="col-xl-10 col-lg-12 col-md-9">
 
-			<!-- Main Content -->
-			<div id="content">
+				<div class="card o-hidden border-0 shadow-lg my-5">
+					<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
+						<div class="row">
+							<div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+							<div class="col-lg-6">
+								<div class="p-5">
+									<form action="/otpInput" method="post" class="user"
+										th:object="${otpInputForm}">
+										<div class="text-left">
+											<h1 class="h4 text-gray-900 mb-2">Đăng ký account thành
+												công!</h1>
+											Xin chào: <span
+												class="mr-2 d-none d-lg-inline text-gray-600 small"
+												th:utext="*{user}"></span>
+											<p class="mb-4">
+												Bạn đã đăng ký một account thành công, tuy nhiên bạn cần xác
+												thực lại thông tin vừa đăng ký. <br>Một tin nhắn có
+												chứa mã OTP vừa gửi tới số điện thoại của bạn. <br>Vui
+												lòng nhập mã xác thực trong vòng 24h, nếu không tài khoản
+												nãy sẽ bị xóa.
+										</div>
 
-				<!-- Topbar -->
-				<th:block th:include="include/topbar"></th:block>
-				<!-- End of Topbar -->
+										<div class="form-group">
+											<input type="number" th:field="*{Otp}"
+												class="form-control form-control-user"
+												id="exampleInputEmail" aria-describedby="emailHelp"
+												placeholder="Nhập mã OTP">
+										</div>
+										<input type="submit"
+											class="btn btn-primary btn-user btn-block" value="Xác thực" />
+										<input type="hidden" name="userId" th:value="*{userId}" />
 
-				<!-- Begin Page Content -->
-				<div class="container-fluid">
-
-					<!-- Page Heading -->
-
-					<!-- Content Row -->
-					<th:block th:include="include/breadcrumb"></th:block>
-					<!-- Content Row -->
-					<div class="row">
-
-						<!-- Earnings (Monthly) Card Example -->
-						<div class="col-xl-3 col-md-6 mb-4">
-							<form action="/action_page.php" class="needs-validation"
-								novalidate>
-								<div class="form-group">
-									<input type="text" class="form-control" id="uname"
-										placeholder="Nhap ma OTP" name="uname" required
-										autocomplete="off">
-									<div class="valid-feedback">Valid.</div>
-									<div class="invalid-feedback">Nhap ma OTP</div>
+										<hr>
+										<div class="text-center">
+											<a class="small" href="/register">Create an Account!</a>
+										</div>
+										<div class="text-center">
+											<a class="small" href="/login">Already have an account?
+												Login!</a>
+										</div>
+									</form>
 								</div>
-								<button type="submit" class="btn btn-primary">Submit</button>
-							</form>
+							</div>
 						</div>
 					</div>
-					<!-- /.container-fluid -->
-
 				</div>
-				<br> <br>
-				<!-- End of Main Content -->
-
-				<!-- Footer -->
-				<th:block th:include="include/footer"></th:block>
-				<!-- End of Footer -->
 
 			</div>
-			<!-- End of Content Wrapper -->
+
 		</div>
+
 	</div>
-	<!-- End of Page Wrapper -->
-
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal-->
-	<th:block th:include="include/modal/logout-modal"></th:block>
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="vendor/jquery/jquery.min.js"></script>
@@ -100,30 +96,7 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/sb-admin-2.min.js"></script>
-	<script>
-		// Disable form submissions if there are invalid fields
-		(function() {
-			'use strict';
-			window.addEventListener('load',
-					function() {
-						// Get the forms we want to add validation styles to
-						var forms = document
-								.getElementsByClassName('needs-validation');
-						// Loop over them and prevent submission
-						var validation = Array.prototype.filter.call(forms,
-								function(form) {
-									form.addEventListener('submit', function(
-											event) {
-										if (form.checkValidity() === false) {
-											event.preventDefault();
-											event.stopPropagation();
-										}
-										form.classList.add('was-validated');
-									}, false);
-								});
-					}, false);
-		})();
-	</script>
+
 </body>
 
 </html>

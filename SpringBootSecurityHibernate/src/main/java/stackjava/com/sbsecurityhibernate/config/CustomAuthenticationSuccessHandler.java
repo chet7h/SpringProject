@@ -13,15 +13,19 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import stackjava.com.sbsecurityhibernate.entities.User;
+
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		authentication.getPrincipal();
 		authorities.forEach(authority -> {
-			if (authority.getAuthority().equals("ROLE_USER")) {
+			if (authority.getAuthority().equals("ROLE_OTP_REG_ACC")) {
 				try {
 					redirectStrategy.sendRedirect(request, response, "/otpInput");
 				} catch (Exception e) {

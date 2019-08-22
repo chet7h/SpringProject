@@ -3,9 +3,7 @@ package stackjava.com.sbsecurityhibernate.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -17,10 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import stackjava.com.module.sim900a.SendSMS;
-import stackjava.com.sbsecurityhibernate.dao.UserDAO;
 import stackjava.com.sbsecurityhibernate.entities.InfoSendSms;
-import stackjava.com.sbsecurityhibernate.entities.User;
 import stackjava.com.sbsecurityhibernate.form.LoginForm;
 import stackjava.com.sbsecurityhibernate.form.RegisterForm;
 import stackjava.com.sbsecurityhibernate.form.SendSmsForm;
@@ -31,19 +26,13 @@ import stackjava.com.sbsecurityhibernate.validator.LoginValidator;
 public class BaseController {
 
 	@Autowired
-	private UserDAO userDAO;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
 	private LoginValidator loginValidator;
 
 	@Autowired
-	HttpServletRequest request;
+	private HttpServletRequest request;
 
 	@Autowired
-	SendSmsService sendSmsService;
+	private SendSmsService sendSmsService;
 
 	// Set a form validator
 	@InitBinder
@@ -83,28 +72,6 @@ public class BaseController {
 	@RequestMapping("/admin")
 	public String admin() {
 		return "admin";
-	}
-
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register(Model model) {
-		RegisterForm registerForm = new RegisterForm();
-		model.addAttribute("registerForm", registerForm);
-		return "register";
-	}
-
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String saveRegister(Model model, @Valid RegisterForm registerForm, BindingResult result) {
-		// Validate result
-		if (result.hasErrors()) {
-			model.addAttribute("registerForm", registerForm);
-			return "register";
-		}
-		User user = new User();
-		BeanUtils.copyProperties(registerForm, user);
-		user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
-		userDAO.registerAccount(user);
-		model.addAttribute("loginForm", new LoginForm());
-		return "otp-input";
 	}
 
 	@GetMapping("/sendSms")
@@ -150,11 +117,6 @@ public class BaseController {
 	@RequestMapping("/activityLog")
 	public String activityLog() {
 		return "activity-log";
-	}
-
-	@RequestMapping("/otpInput")
-	public String otpInput() {
-		return "otp-input";
 	}
 
 	@RequestMapping("/403")

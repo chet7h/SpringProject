@@ -34,16 +34,12 @@ public class UserDAO {
 	}
 
 	public void registerAccount(User user) {
-
 		Session session = this.sessionFactory.getCurrentSession();
-		session.beginTransaction();
 		user.setEnabled(true);
 		session.save(user);
 		Role role = new Role();
-		role.setId(2);
+		role.setId(3);
 		UsersRoles userRoles = new UsersRoles(role, user);
 		session.save(userRoles);
-		session.getTransaction().commit();
-		session.close();
 	}
 }
