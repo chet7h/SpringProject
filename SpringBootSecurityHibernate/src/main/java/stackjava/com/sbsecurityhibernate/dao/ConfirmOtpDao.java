@@ -1,7 +1,10 @@
 package stackjava.com.sbsecurityhibernate.dao;
 
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,18 +29,19 @@ public class ConfirmOtpDao {
 
 	public void updateStatustOtp(int user, int otpInput) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Role r = new Role();
-		r.setId(1);
-		UsersRoles ur = new UsersRoles();
-		User u = new User();
-		u.setId(user);
-		ur.setRole(r);
-		ur.setUsers(u);
-		session.update(ur);
+		String hqlUpdate1 = "update UsersRoles c set c.role.id = 1 where c.users.id = :userId";
+		int updatedEntities1 = session.createQuery(hqlUpdate1).setParameter("userId", user).executeUpdate();
 
 		String hqlUpdate2 = "update OtpInput c set c.status = 2 where c.userId = :userId";
-		int updatedEntities2 = session.createQuery(hqlUpdate2, OtpInput.class).setParameter("userId", user)
-				.executeUpdate();
+		int updatedEntities2 = session.createQuery(hqlUpdate2).setParameter("userId", user).executeUpdate();
 
+	}
+
+	public void getInfoOtp(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.createQuery("");
+		String sql = "SELECT * FROM EMPLOYEE";
+		SQLQuery query = session.createSQLQuery(sql);
+		
 	}
 }

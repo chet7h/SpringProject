@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Chỉ cho phép user có quyền ADMIN hoặc USER truy cập đường dẫn
 		// /user/**
 
-		http.authorizeRequests().antMatchers("/otpInput").access("hasRole('ROLE_OTP_REG_ACC')");
+//		http.authorizeRequests().antMatchers("/otpInput").access("hasRole('ROLE_OTP_REG_ACC')");
 		String[] re = new String[] { "/admin**", "/setting**", "/apiManager**", "/profile**", "/sendSms**" };
 		http.authorizeRequests().antMatchers(re).access("hasRole('ROLE_ADMIN')");
 

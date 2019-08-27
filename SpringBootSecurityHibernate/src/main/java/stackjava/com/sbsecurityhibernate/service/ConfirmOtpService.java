@@ -19,4 +19,9 @@ public class ConfirmOtpService {
 		}
 	}
 
+	public void getInfoOtp(String name) {
+		confirmOtpDao.getInfoOtp(name);
+		
+	}
+
 }
