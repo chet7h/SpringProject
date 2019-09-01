@@ -38,7 +38,7 @@ public class UserDAO {
 		user.setEnabled(true);
 		session.save(user);
 		Role role = new Role();
-		role.setId(3);
+		role.setRoleId(3);
 		UsersRoles userRoles = new UsersRoles(role, user);
 		session.save(userRoles);
 	}

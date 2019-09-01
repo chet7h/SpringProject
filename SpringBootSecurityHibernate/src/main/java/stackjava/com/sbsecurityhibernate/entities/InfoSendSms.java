@@ -14,30 +14,48 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "info_send_sms", catalog = "giai_phap_sms")
 public class InfoSendSms {
-
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id_info_send_sms")
 	private int idInfoSendSms;
-
+	
+	@Column(name = "number_phone", length = 15)
 	private String numberPhone;
 
+	@Column(name = "content", length = 1000)
 	private String content;
-
+	
+	@Column(name = "status", length = 11)
 	private int status;
-
+	
+	@Column(name = "type_send")
 	private int typeSend;
-
+	
+	@Column(name = "sender", length = 15)
 	private String sender;
-
+	
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_date")
+	
 	private Date createDate;
-
+	@Column(name = "update_date")
 	private Date updateDate;
 	
+	@Column(name = "send_now")
 	private boolean sendNow;
 	
+	@Column(name = "date_time_send")
 	private Date dateTimeSend;
-	
+
+	@Column(name = "repeat_time")
 	private int repeatTime;
 
 	public InfoSendSms() {
@@ -57,108 +75,4 @@ public class InfoSendSms {
 		this.updateDate = updateDate;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id_info_send_sms")
-	public int getIdInfoSendSms() {
-		return idInfoSendSms;
-	}
-
-	public void setIdInfoSendSms(int idInfoSendSms) {
-		this.idInfoSendSms = idInfoSendSms;
-	}
-
-	@Column(name = "number_phone", length = 15)
-	public String getNumberPhone() {
-		return numberPhone;
-	}
-
-	public void setNumberPhone(String numberPhone) {
-		this.numberPhone = numberPhone;
-	}
-
-	@Column(name = "content", length = 1000)
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	@Column(name = "status", length = 11)
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	@Column(name = "type_send", length = 11)
-	public int getTypeSend() {
-		return typeSend;
-	}
-
-	public void setTypeSend(int typeSend) {
-		this.typeSend = typeSend;
-	}
-
-	@Column(name = "sender", length = 15)
-	public String getSender() {
-		return sender;
-	}
-
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
-
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_date")
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	@Column(name = "update_date")
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	@Column(name = "send_now")
-	public boolean isSendNow() {
-		return sendNow;
-	}
-
-	public void setSendNow(boolean sendNow) {
-		this.sendNow = sendNow;
-	}
-
-	@Column(name = "date_time_send")
-	public Date getDateTimeSend() {
-		return dateTimeSend;
-	}
-
-	public void setDateTimeSend(Date dateTimeSend) {
-		this.dateTimeSend = dateTimeSend;
-	}
-
-	@Column(name = "repeat_time")
-	public int getRepeatTime() {
-		return repeatTime;
-	}
-
-	public void setRepeatTime(int repeatTime) {
-		this.repeatTime = repeatTime;
-	}
-	
-	
 }

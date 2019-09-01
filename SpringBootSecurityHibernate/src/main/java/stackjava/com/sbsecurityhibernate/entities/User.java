@@ -24,22 +24,48 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "users", catalog = "giai_phap_sms", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+
+	@Column(name = "user_id", unique = true, nullable = false)
 	private Integer id;
+
+	@Column(name = "username", unique = true, length = 30)
 	private String username;
+
+	@Column(name = "password")
 	private String password;
+
+	@Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(1)")
 	private Boolean enabled;
 
+	@Column(name = "first_name")
 	private String firstName;
+
+	@Column(name = "last_name")
 	private String lastName;
+
+	@Column(name = "number_phone")
 	private String numberPhone;
+
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_date", insertable = false)
 	private Date createDate;
+
+	@Column(name = "update_date")
 	private Date updateDate;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
 	private Set<UsersRoles> usersRoleses = new HashSet<UsersRoles>(0);
 
 	public User() {
@@ -60,106 +86,11 @@ public class User implements java.io.Serializable {
 		this.usersRoleses = usersRoleses;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(final Integer id) {
-		this.id = id;
-	}
-
-	@Column(name = "username", unique = true, length = 45)
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(final String username) {
-		this.username = username;
-	}
-
-	@Column(name = "password")
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(final String password) {
-		this.password = password;
-	}
-
-	@Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(1)")
-	public Boolean getEnabled() {
-		return this.enabled;
-	}
-
-	public void setEnabled(final Boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
-	public Set<UsersRoles> getUsersRoleses() {
-		return this.usersRoleses;
-	}
-
-	public void setUsersRoleses(final Set<UsersRoles> usersRoleses) {
-		this.usersRoleses = usersRoleses;
-	}
-
-	@Column(name = "first_name")
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	@Column(name = "last_name")
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	@Column(name = "number_phone")
-	public String getNumberPhone() {
-		return numberPhone;
-	}
-
-	public void setNumberPhone(String numberPhone) {
-		this.numberPhone = numberPhone;
-	}
-
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_date", insertable = false)
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	@Column(name = "update_date")
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
 	@Transient
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		for (UsersRoles usersRoles : this.usersRoleses) {
-			authorities.add(new SimpleGrantedAuthority(usersRoles.getRole().getName()));
+			authorities.add(new SimpleGrantedAuthority(usersRoles.getRole().getNameRole()));
 		}
 		return authorities;
 	}
