@@ -17,9 +17,7 @@ public class AddOtpDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void registerOtp(RegisterOtpDto registerOtpDto) {
-		OtpInput otpInput = new OtpInput();
-		BeanUtils.copyProperties(registerOtpDto, otpInput);
+	public void registerOtp(OtpInput otpInput) {
 		Session session = this.sessionFactory.getCurrentSession();
 //		otpInput.setIdInfoSendSms(idInfoSendSms);
 //		otpInput.setUserId(userId);
@@ -28,5 +26,6 @@ public class AddOtpDao {
 //		otpInput.setType(1);
 		session.save(otpInput);
 	}
+
 
 }

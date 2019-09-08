@@ -1,41 +1,44 @@
 package stackjava.com.sbsecurityhibernate.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+import stackjava.com.sbsecurityhibernate.entities.OtpInput;
 import stackjava.com.sbsecurityhibernate.entities.Role;
-import stackjava.com.sbsecurityhibernate.entities.User;
+import stackjava.com.sbsecurityhibernate.entities.Users;
 import stackjava.com.sbsecurityhibernate.entities.UsersRoles;
 
 @Repository(value = "userDAO")
 @Transactional(rollbackFor = Exception.class)
+@Slf4j
 public class UserDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public User loadUserByUsername(final String username) {
-		List<User> users = new ArrayList<User>();
+	public Users loadUserByUsername(final String username) {
 		Session session = this.sessionFactory.getCurrentSession();
-		users = session.createQuery("from User where username=?", User.class).setParameter(0, username).list();
+		Users results = null;
+		try {
 
-		if (users.size() > 0) {
-			return users.get(0);
-		} else {
-			return null;
+			results = session.createQuery("from Users where username = ?", Users.class).setParameter(0, username)
+					.getSingleResult();
+
+		} catch (Exception e) {
+			log.debug(e.getMessage());
 		}
+		return results;
 
 	}
 
-	public void registerAccount(User user) {
+	public void registerAccount(Users user) {
 		Session session = this.sessionFactory.getCurrentSession();
-		user.setEnabled(true);
+		user.setEnabled(1);
 		session.save(user);
 		Role role = new Role();
 		role.setRoleId(3);

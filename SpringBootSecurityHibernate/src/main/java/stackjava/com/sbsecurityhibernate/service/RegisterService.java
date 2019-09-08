@@ -10,7 +10,8 @@ import stackjava.com.sbsecurityhibernate.dao.SendSmsDao;
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
 import stackjava.com.sbsecurityhibernate.dto.RegisterOtpDto;
 import stackjava.com.sbsecurityhibernate.entities.InfoSendSms;
-import stackjava.com.sbsecurityhibernate.entities.User;
+import stackjava.com.sbsecurityhibernate.entities.OtpInput;
+import stackjava.com.sbsecurityhibernate.entities.Users;
 import stackjava.com.sbsecurityhibernate.form.RegisterForm;
 import stackjava.com.sbsecurityhibernate.utils.StringsUtils;
 
@@ -27,26 +28,27 @@ public class RegisterService {
 	private PasswordEncoder passwordEncoder;
 
 	public int registerAccount(RegisterForm registerForm) {
-		User user = new User();
+		Users user = new Users();
 		BeanUtils.copyProperties(registerForm, user);
 		user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
 		userDAO.registerAccount(user);
 		String OTP = StringsUtils.createRandomNumber(6);
 		InfoSendSms infoSendSms = new InfoSendSms();
 		infoSendSms.setStatus(1);
-		infoSendSms.setSendNow(true);
+		infoSendSms.setSendNow(1);
 		infoSendSms.setSender("0000000000");
 
 		infoSendSms.setNumberPhone(registerForm.getNumberPhone());
 		infoSendSms.setContent("ma OTP cua ban la: " + OTP);
 		sendSmsDao.insertContentSms(infoSendSms);
 
-		RegisterOtpDto registerOtpDto = new RegisterOtpDto();
-		registerOtpDto.setIdInfoSendSms(infoSendSms.getIdInfoSendSms());
-		registerOtpDto.setUserId(user.getId());
-		registerOtpDto.setStatus(1);
-		registerOtpDto.setOTP(OTP);
-		addOtpDao.registerOtp(registerOtpDto);
-		return user.getId();
+		OtpInput otpInput = new OtpInput();
+		otpInput.setInfoSendSms(infoSendSms);
+		otpInput.setUsers(user);
+		otpInput.setStatus(1);
+		otpInput.setType(0);
+		otpInput.setOtp(OTP);
+		addOtpDao.registerOtp(otpInput);
+		return user.getUserId();
 	}
 }

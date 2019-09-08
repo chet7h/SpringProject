@@ -17,7 +17,7 @@ public class SendSmsForm {
 	@NotNull
 	private String contentSms;
 
-	private boolean sendNow;
+	private int sendNow;
 	
 	private Date dateTimeSend;
 	

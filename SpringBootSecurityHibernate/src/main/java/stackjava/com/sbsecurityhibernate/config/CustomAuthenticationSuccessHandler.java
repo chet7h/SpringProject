@@ -13,8 +13,6 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import stackjava.com.sbsecurityhibernate.entities.User;
-
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 

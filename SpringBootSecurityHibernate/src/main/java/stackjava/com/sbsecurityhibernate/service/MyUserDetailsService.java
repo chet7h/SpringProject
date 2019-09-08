@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
+import stackjava.com.sbsecurityhibernate.entities.Users;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -17,7 +18,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
-		stackjava.com.sbsecurityhibernate.entities.User user = userDAO.loadUserByUsername(username);
+		Users user = userDAO.loadUserByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Username Not Found");
 		}

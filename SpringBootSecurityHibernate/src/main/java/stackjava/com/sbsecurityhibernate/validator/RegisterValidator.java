@@ -7,7 +7,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
-import stackjava.com.sbsecurityhibernate.entities.User;
+import stackjava.com.sbsecurityhibernate.entities.Users;
 import stackjava.com.sbsecurityhibernate.form.RegisterForm;
 
 @Component
@@ -58,7 +58,7 @@ public class RegisterValidator implements Validator {
 		}
 
 		if (!errors.hasFieldErrors("username")) {
-			User dbUser = userDAO.loadUserByUsername(form.getUsername());
+			Users dbUser = userDAO.loadUserByUsername(form.getUsername());
 			if (dbUser != null) {
 				// Tên tài khoản đã bị sử dụng bởi người khác.
 				errors.rejectValue("username", "Duplicate.registerForm.userName");
