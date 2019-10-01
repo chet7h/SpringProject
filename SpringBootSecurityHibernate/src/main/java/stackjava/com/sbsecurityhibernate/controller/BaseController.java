@@ -75,13 +75,17 @@ public class BaseController {
 	}
 
 	@GetMapping("/sendSms")
-	public String sendSms() {
+	public String sendSms(Model model) {
+		model.addAttribute("sendSmsForm", new SendSmsForm());
 		return "send-sms";
 	}
 
 	@PostMapping("/sendSms")
 	public String sendSmsFromDatabase(Model model, @Valid SendSmsForm sendSmsForm, BindingResult result) {
-
+		if (result.hasErrors()) {
+			model.addAttribute("sendSmsForm", sendSmsForm);
+			return "send-sms";
+		}
 		InfoSendSms infoSendSms = new InfoSendSms();
 		infoSendSms.setContent(sendSmsForm.getContentSms());
 		infoSendSms.setNumberPhone(sendSmsForm.getNumberPhone());
@@ -91,6 +95,7 @@ public class BaseController {
 		infoSendSms.setDateTimeSend(sendSmsForm.getDateTimeSend());
 		infoSendSms.setRepeatTime(sendSmsForm.getRepeatTime());
 		sendSmsService.insertContentSms(infoSendSms);
+		model.addAttribute("sendSmsForm", sendSmsForm);
 		return "send-sms";
 	}
 
@@ -123,4 +128,5 @@ public class BaseController {
 	public String accessDenied() {
 		return "403";
 	}
+
 }

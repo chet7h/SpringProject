@@ -65,7 +65,17 @@
 								<div class="text-center">
 									<h1 class="h4 text-gray-900 mb-4">Thiết lập tin nhắn gửi</h1>
 								</div>
-								<form th:action="@{/sendSms}" method="post">
+								<form th:action="@{/sendSms}" method="post" th:object="${sendSmsForm}">
+
+									<div class="alert alert-warning alert-dismissible fade show"
+										th:if="${#fields.hasErrors('*')}" role="alert">
+										<strong th:errors="*{*}"></strong>
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+
 									<div class="form-group">
 										<label for="email">Tới:</label> <input type="text"
 											class="form-control" id="email"

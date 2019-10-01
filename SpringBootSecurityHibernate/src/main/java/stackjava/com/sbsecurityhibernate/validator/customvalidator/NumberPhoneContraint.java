@@ -21,7 +21,7 @@ import javax.validation.Payload;
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NumberPhoneContraint {
-	String message() default "{Error.registerForm.firstName}";
+	String message() default "Invalid ssssss";
 
 	Class<?>[] groups() default {};
 
