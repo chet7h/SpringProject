@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.FirstNameContraint;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.LastNameContraint;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.NumberPhoneContraint;
+import stackjava.com.sbsecurityhibernate.validator.customvalidator.NumberPhoneInuseContraint;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.PasswordContraint;
 import stackjava.com.sbsecurityhibernate.validator.customvalidator.UsernameContraint;
 
@@ -25,6 +26,7 @@ public class RegisterForm {
 
 	@NotNull
 	@NumberPhoneContraint
+	@NumberPhoneInuseContraint
 	private String numberPhone;
 
 	private String password;

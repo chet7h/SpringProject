@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import stackjava.com.sbsecurityhibernate.dao.AddOtpDao;
 import stackjava.com.sbsecurityhibernate.dao.SendSmsDao;
 import stackjava.com.sbsecurityhibernate.dao.UserDAO;
-import stackjava.com.sbsecurityhibernate.dto.RegisterOtpDto;
 import stackjava.com.sbsecurityhibernate.entities.InfoSendSms;
 import stackjava.com.sbsecurityhibernate.entities.OtpInput;
 import stackjava.com.sbsecurityhibernate.entities.Users;

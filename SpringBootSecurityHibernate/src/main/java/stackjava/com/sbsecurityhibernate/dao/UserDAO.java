@@ -1,14 +1,14 @@
 package stackjava.com.sbsecurityhibernate.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
-import stackjava.com.sbsecurityhibernate.entities.OtpInput;
 import stackjava.com.sbsecurityhibernate.entities.Role;
 import stackjava.com.sbsecurityhibernate.entities.Users;
 import stackjava.com.sbsecurityhibernate.entities.UsersRoles;
@@ -44,5 +44,15 @@ public class UserDAO {
 		role.setRoleId(3);
 		UsersRoles userRoles = new UsersRoles(role, user);
 		session.save(userRoles);
+	}
+
+	public boolean hasNumberPhone(String numberPhone) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Users> results = session.createQuery("from Users where numberPhone = ?", Users.class)
+				.setParameter(0, numberPhone).getResultList();
+		if (results.size() > 0) {
+			return false;
+		}
+		return true;
 	}
 }

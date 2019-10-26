@@ -17,11 +17,11 @@ import javax.validation.Payload;
  *
  */
 @Documented
-@Constraint(validatedBy = NumberPhoneValidator.class)
+@Constraint(validatedBy = NumberPhoneInsueValidator.class)
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NumberPhoneContraint {
-	String message() default "{Error.numberPhone.incorrect}";
+public @interface NumberPhoneInuseContraint {
+	String message() default "{Error.numberPhone.inuse}";
 
 	Class<?>[] groups() default {};
 
