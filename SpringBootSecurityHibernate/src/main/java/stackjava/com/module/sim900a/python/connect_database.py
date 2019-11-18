@@ -2,18 +2,17 @@ import mysql.connector
 import SendSMS as SMS
 import os, time
 
-# Connect to server
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="cuongnv20",
-  database="giai_phap_sms"
-)
 #loop 
 #=======================Begin===================
 while True:
 	print "while True"
-
+	# Connect to server
+	mydb = mysql.connector.connect(
+	  host="localhost",
+	  user="root",
+	  passwd="cuongnv20",
+	  database="giai_phap_sms"
+	)
 	print "setting mysql OK"
 	# Get a cursor
 	mycursor = mydb.cursor()
@@ -54,7 +53,7 @@ while True:
 		update.close()
 	if numRecBeginSend != numRecEndSend:
 		print("co ", (numRecBeginSend - numRecEndSend), " bi loi")
+	# Close connection
+	mydb.close()
 	time.sleep(1)
 #loop 
-# Close connection
-mydb.close()
