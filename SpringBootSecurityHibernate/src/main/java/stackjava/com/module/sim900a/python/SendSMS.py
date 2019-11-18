@@ -18,6 +18,10 @@ def send(result):
 	rcv = port.read(10)
 	print rcv
 	time.sleep(1)
+	port.write('AT+CMGDA="DEL ALL"'+'\r\n')  # xoa toan bo tin nhan
+	rcv = port.read(10)
+	print rcv
+	time.sleep(1)
 	port.write('AT+CSQ'+'\r\n')  # kiem tra chat luong song
 	rcv = port.read(10)
 	print('chat luong song')
@@ -40,6 +44,6 @@ def send(result):
 	print rcv
 	port.write("\x1A\r\n") # Enable to send SMS
 	#0x1A send or 0x1B cancel
-	#for i in range(10):
-	#	rcv = port.read(10)
-	#	print rcv
+	for i in range(10):
+		rcv = port.read(10)
+		print rcv
